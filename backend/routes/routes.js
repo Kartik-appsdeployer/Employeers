@@ -1,0 +1,13 @@
+const express = require('express')
+const router = express.Router();
+const AddEmp = require('./addEmp')
+const EditEmp = require('./editEmp')
+const DeleteEmp = require('./deleteEmp')
+const AllEmp = require('./getAllEmp')
+
+router.use('/addEmp', AddEmp)
+router.use('/editEmp', EditEmp)
+router.use('/deleteEmp', DeleteEmp)
+router.use('/getAllEmp', AllEmp)
+
+module.exports = router
