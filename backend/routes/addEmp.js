@@ -1,12 +1,14 @@
 const express = require('express')
 const router = express.Router();
-const EmployeeDB = require('../models/addEmployee')
+const EmployeeDB = require('../models/addEmployee');
 
-router.post('/', async (req, res) => {
+router.post('/',async (req, res) => {
     const { firstName, lastName, email, date, gender, company, education, experience, package } = req.body;
-    const User = EmployeeDB.findOne({ email: email })
+    // console.log(req.files, "This is File");
+    const User = (await EmployeeDB.findOne({ email: email }) || await EmployeeDB.findOne({ email: email }))
+
     if (User) {
-        res.json({ message: "Employee with this Email Already Exists!" })
+        res.json({ success: false, message: "Employee with this Email Already Exists!" })
     }
     else {
         await EmployeeDB.create({
@@ -20,9 +22,9 @@ router.post('/', async (req, res) => {
             experience: experience,
             package: package
         }).then((obj) => {
-            res.status(201).json({ message: "Successfully done" })
+            res.status(201).json({ success: true, message: "Successfully done" })
         }).catch((err) => {
-            res.status(400).json({ message: err.message })
+            res.status(400).json({ success: false, message: err.message })
         })
     }
 
