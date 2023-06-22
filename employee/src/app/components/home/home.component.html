@@ -41,7 +41,7 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let item of Array | paginate: { itemsPerPage: 4, currentPage: p }">
+            <tbody *ngFor="let item of employees | paginate: { itemsPerPage: 4, currentPage: p }">
                 <tr>
                     <td>{{item.firstName}} {{item.lastName}}</td>
                     <td>{{item.email}}</td>
@@ -183,7 +183,6 @@
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

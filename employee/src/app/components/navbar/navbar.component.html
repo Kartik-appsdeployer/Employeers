@@ -19,6 +19,26 @@
 
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <button type="button" class="add-emp-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+        Login</button>
+    </div>
+    <!-- Button trigger modal -->
+    <div class="modal fade" id="staticBackdrop4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <button type="button" class="login-with-google-btn" (click)="authService.GoogleAuth()">
+              Sign in with Google
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <button type="button" class="add-emp-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add
         Employee</button>
     </div>
@@ -108,17 +128,19 @@
               <div class="dropdown">
                 <a class="btn btn-secondary dropdown-toggle" style="background: inherit; color: #787878; width: 221px;
                 border: 0.5px solid #ccc6c6;
-                text-align: left;" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-                  aria-expanded="false">
+                text-align: left;" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                   {{edu}}
                 </a>
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <li><a class="dropdown-item" (click)="education('High School')" style="cursor: pointer;">High School</a></li>
+                  <li><a class="dropdown-item" (click)="education('High School')" style="cursor: pointer;">High
+                      School</a></li>
                   <li><a class="dropdown-item" (click)="education('Diploma')" style="cursor: pointer;">Diploma</a></li>
-                  <li><a class="dropdown-item" (click)="education('Bachelor Degree')" style="cursor: pointer;">Bachelor's Degree</a>
+                  <li><a class="dropdown-item" (click)="education('Bachelor Degree')"
+                      style="cursor: pointer;">Bachelor's Degree</a>
                   </li>
-                  <li><a class="dropdown-item" (click)="education('Post Graduate')" style="cursor: pointer;">Post Graduate</a></li>
+                  <li><a class="dropdown-item" (click)="education('Post Graduate')" style="cursor: pointer;">Post
+                      Graduate</a></li>
                   <li><a class="dropdown-item" (click)="education('PHD')" style="cursor: pointer;">PHD</a></li>
                 </ul>
               </div>

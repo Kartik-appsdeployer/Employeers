@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResumeService } from 'src/app/resume.service';
+import { EmployeesService } from 'src/app/services/employees.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,7 @@ import { ResumeService } from 'src/app/resume.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(private http: HttpClient,private resumeService: ResumeService) {}
+  constructor(private http: HttpClient, public authService: AuthService, private employeeService: EmployeesService) { }
   firstName: any = "";
   lastName: any = "";
   email: any = "";
@@ -25,16 +26,9 @@ export class NavbarComponent {
   message: any = "";
   Success: any = "";
   fileToUpload: File | null = null;
-  
+
   myObject: any = {};
-
-  // handleFileInput(event: any): void {
-  //   console.log(event.target.files[0])
-  //   this.fileToUpload = event.target.files[0];
-  // }
-  
-
-  onSubmit(){
+  onSubmit() {
     // if(this.fileToUpload){
     //     this.myObject["resume"] = this.fileToUpload
     // }
@@ -42,15 +36,15 @@ export class NavbarComponent {
     this.myObject["lastName"] = this.lastName
     this.myObject["email"] = this.email
     this.myObject["date"] = this.date
-    if(this.male !== ""){
+    if (this.male !== "") {
       this.gender = this.male
       this.myObject["gender"] = this.gender
     }
-    else if(this.female !== ""){
+    else if (this.female !== "") {
       this.gender = this.female
       this.myObject["gender"] = this.gender
     }
-    else if(this.others !== ""){
+    else if (this.others !== "") {
       this.gender = this.others
       this.myObject["gender"] = this.gender
     }
@@ -59,39 +53,39 @@ export class NavbarComponent {
     this.myObject["experience"] = this.experience
     this.myObject["package"] = this.package;
     console.log(this.myObject, "This is Object")
-    let url = "http://localhost:3000/api/addEmp"
-    this.http.post(url, this.myObject).subscribe((res:any) => {
-        if(res.success === true){
-          this.alertVis = true
-          this.message = res.message
-          this.Success = res.success
-          setTimeout(() => {
-            this.alertVis = false
-          }, 2000)
-          this.firstName = ""
-          this.lastName = ""
-          this.email = ""
-          this.date = ""
-          this.male = ""
-          this.female = ""
-          this.others = ""
-          this.edu = ""
-          this.experience = ""
-          this.company = ""
-          this.package = ""
-        }
-        else{
-          console.log(res)
+    this.employeeService.addEmployee(this.myObject).subscribe((res: any) => {
+      this.employeeService.getEmployees()
+      if (res.success === true) {
+        this.alertVis = true
+        this.message = res.message
+        this.Success = res.success
+        setTimeout(() => {
           this.alertVis = false
-          this.Success = res.success
-          this.message = res.message
-          setTimeout(() => {
-            this.alertVis = true
-          }, 2000)
-        }
-    });
+        }, 2000)
+        this.firstName = ""
+        this.lastName = ""
+        this.email = ""
+        this.date = ""
+        this.male = ""
+        this.female = ""
+        this.others = ""
+        this.edu = ""
+        this.experience = ""
+        this.company = ""
+        this.package = ""
+      }
+      else {
+        console.log(res)
+        this.alertVis = false
+        this.Success = res.success
+        this.message = res.message
+        setTimeout(() => {
+          this.alertVis = true
+        }, 2000)
+      }
+    })
   }
-  education(type: any){
+  education(type: any) {
     this.edu = type;
   }
 }

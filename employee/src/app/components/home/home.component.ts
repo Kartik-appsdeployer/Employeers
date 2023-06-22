@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private employeeService: EmployeesService) {}
   Array: any;
   data: any;
   firstName: any = "";
@@ -76,6 +77,7 @@ export class HomeComponent {
     this.myObject["package"] = this.package;
     let URL = `http://localhost:3000/api/editEmp/${this.empId}`
     this.http.put(URL, this.myObject).subscribe((Obj: any) => {
+      this.employeeService.getEmployees()
       if(Obj.success === true){
         this.alertVis = true
         this.message = Obj.message
@@ -103,15 +105,18 @@ export class HomeComponent {
   handleDelete(ID: any){
     let URL =  `http://localhost:3000/api/deleteEmp/${ID}`
     this.http.delete(URL).subscribe((res) => {
+      this.employeeService.getEmployees()
       console.log(res, "Deleted");
     })
   }
-
-  ngOnInit(){
-    this.getData().subscribe((obj:any) => {
-      this.Array = obj.data;
-      this.ArrayLen = this.Array.length;
-      console.log(this.ArrayLen);
-    })
+  employees: any[] = [];
+  ngOnInit() {
+    this.employeeService.getEmployees();
+    this.employeeService.employees$.subscribe((employees:any) => {
+      this.employees = employees.data;
+      console.log("Mereeee", employees)
+    });
+    
+    // console.log(this.employees, "Employees")
   }
 }
