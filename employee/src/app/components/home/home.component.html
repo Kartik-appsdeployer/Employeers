@@ -8,25 +8,32 @@
 </head>
 
 <body>
-    <div class="home-container" style="width: 75%; margin: auto; margin-top: 43px;">
-        <div class="alert alert-success d-flex align-items-center" *ngIf="alertVis === true && Success === true" role="alert">
+    <div class="home-container" style="
+    margin: auto;
+    margin-top: 43px;
+    overflow-x: scroll;
+    padding-right: 20px;
+    padding-left: 20px;
+">
+        <div class="alert alert-success d-flex align-items-center" *ngIf="alertVis === true && Success === true"
+            role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
-              <use xlink:href="#check-circle-fill" />
+                <use xlink:href="#check-circle-fill" />
             </svg>
             <div>
-              {{message}}
+                {{message}}
             </div>
-          </div>
-        
-          <div class="alert alert-danger d-flex align-items-center" *ngIf=" Success === false && alertVis === false"
+        </div>
+
+        <div class="alert alert-danger d-flex align-items-center" *ngIf=" Success === false && alertVis === false"
             role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-              <use xlink:href="#exclamation-triangle-fill" />
+                <use xlink:href="#exclamation-triangle-fill" />
             </svg>
             <div>
-              {{message}}
+                {{message}}
             </div>
-          </div>
+        </div>
         <table class="table table-striped table-responsive table-bordered">
             <thead>
                 <tr>
@@ -38,6 +45,8 @@
                     <th scope="col">Company</th>
                     <th scope="col">Experience</th>
                     <th scope="col">Package</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Logout</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -51,32 +60,52 @@
                     <td>{{item.company}}</td>
                     <td>{{item.experience}}</td>
                     <td>{{item.package}}</td>
-                    <td style="display: flex; padding: 12px;">
+                    <td *ngIf="item.login === true"><i style="    display: flex;
+                        justify-content: center;
+                        margin-top: 3px;
+                        font-size: 25px;
+                        color: green;" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                    <td *ngIf="item.login === false"><i style="    display: flex;
+                        justify-content: center;
+                        margin-top: 3px;
+                        font-size: 25px;
+                        color: red;" class="fa fa-ban" aria-hidden="true"></i></td>
+                    <td *ngIf="item.logout === true"><i style="    display: flex;
+                        justify-content: center;
+                        margin-top: 3px;
+                        font-size: 25px;
+                        color: green;" class="fa fa-check-circle" aria-hidden="true"></i></td>
+                    <td *ngIf="item.logout === false"><i style="    display: flex;
+                        justify-content: center;
+                        margin-top: 3px;
+                        font-size: 25px;
+                        color: red;" class="fa fa-ban" aria-hidden="true"></i></td>
+                    
+                    
+                        <td style="display: flex; padding: 12px;">
                         <i class="fa fa-pencil" data-bs-toggle="modal" data-bs-target="#staticBackdrop1" style="margin-right: 21px;
                         cursor: pointer;
                         background: #0dd60d;
                         padding: 6px;
-                        border-radius: 6px; "
-                            (click)="handleEdit(item._id, item)" aria-hidden="true"></i>
+                        border-radius: 6px; " (click)="handleEdit(item._id, item)" aria-hidden="true"></i>
                         <i class="fa fa-trash" style="cursor: pointer;
                         background: #ff0b0b;
                         padding: 6px;
                         border-radius: 6px;
-                        color: white;" aria-hidden="true"
-                            (click)="handleDelete(item._id)"></i>
+                        color: white;" aria-hidden="true" (click)="handleDelete(item._id)"></i>
                     </td>
                 </tr>
 
             </tbody>
         </table>
 
-        <div class="pagination" style="margin: auto; text-align: center">
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
+        
     </div>
-    
-    <div class="modal fade" id="staticBackdrop1" *ngIf="visiblePopup === true" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="pagination" style="margin: auto; text-align: center">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <div class="modal fade" id="staticBackdrop1" *ngIf="visiblePopup === true" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,22 +115,18 @@
                 <div class="modal-body">
                     <div class="row my-4">
                         <div class="col">
-                            <input type="text" [(ngModel)]="firstName" class="form-control"
-                                aria-label="First name">
+                            <input type="text" [(ngModel)]="firstName" class="form-control" aria-label="First name">
                         </div>
                         <div class="col">
-                            <input type="text" [(ngModel)]="lastName" class="form-control"
-                                aria-label="Last name">
+                            <input type="text" [(ngModel)]="lastName" class="form-control" aria-label="Last name">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <input type="email" [(ngModel)]="email" class="form-control"
-                                aria-label="First name">
+                            <input type="email" [(ngModel)]="email" class="form-control" aria-label="First name">
                         </div>
                         <div class="col">
-                            <input type="date" [(ngModel)]="date" class="form-control"
-                                aria-label="Last name">
+                            <input type="date" [(ngModel)]="date" class="form-control" aria-label="Last name">
                         </div>
                     </div>
                     <div class="row mt-4 pe-2 ps-2" style="display: flex !important;">
@@ -149,18 +174,15 @@
                             </div>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" [(ngModel)]="company"
-                                aria-label="Last name">
+                            <input type="text" class="form-control" [(ngModel)]="company" aria-label="Last name">
                         </div>
                     </div>
                     <div class="row my-4">
                         <div class="col">
-                            <input type="text" class="form-control" [(ngModel)]="experience" 
-                                aria-label="First name">
+                            <input type="text" class="form-control" [(ngModel)]="experience" aria-label="First name">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" [(ngModel)]="package"
-                                aria-label="Last name">
+                            <input type="text" class="form-control" [(ngModel)]="package" aria-label="Last name">
                         </div>
                     </div>
                     <!-- <div class="row my-4">

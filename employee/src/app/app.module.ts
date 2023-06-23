@@ -11,6 +11,11 @@ import { AuthService } from './services/auth.service';
 import { environment } from 'src/environment/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { RouterModule } from '@angular/router';
+import appRoutes from './routerConfig';
+import { SignupComponent } from './components/signup/signup.component';
+import { SigninComponent } from './components/signin/signin.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
 @NgModule({
@@ -18,6 +23,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     AppComponent,
     NavbarComponent,
     HomeComponent,
+    SignupComponent,
+    SigninComponent,
+    LogoutComponent,
     
   ],
   
@@ -29,6 +37,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     NgxPaginationModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

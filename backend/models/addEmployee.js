@@ -1,3 +1,4 @@
+const { boolean } = require("joi");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -37,6 +38,14 @@ const Employees = Schema({
     package: {
         type: String,
         required: true,
+    },
+    login:{
+        type: Boolean,
+        default: false
+    },
+    logout:{
+        type: Boolean,
+        default: true
     }
 })
 

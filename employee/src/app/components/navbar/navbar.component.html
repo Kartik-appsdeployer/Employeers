@@ -11,33 +11,22 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Employee</a>
+      <a class="navbar-brand" routerLink="">Employee</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
     </div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <button type="button" class="add-emp-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+    <div class="collapse navbar-collapse" *ngIf="localEmail === null" id="navbarSupportedContent">
+      <button type="button" class="add-emp-btn" routerLink="signin">
         Login</button>
     </div>
-    <!-- Button trigger modal -->
-    <div class="modal fade" id="staticBackdrop4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <button type="button" class="login-with-google-btn" (click)="authService.GoogleAuth()">
-              Sign in with Google
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="collapse navbar-collapse" *ngIf="localEmail !== null" id="navbarSupportedContent">
+      <button type="button" class="add-emp-btn" routerLink="logout">
+        Logout</button>
     </div>
+    
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <button type="button" class="add-emp-btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add
         Employee</button>

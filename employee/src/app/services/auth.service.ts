@@ -18,11 +18,5 @@ export class AuthService {
   async AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
-      .then((result) => {
-        console.log('You have been successfully logged in!', result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
 }

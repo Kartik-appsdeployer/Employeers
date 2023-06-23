@@ -26,7 +26,11 @@ export class NavbarComponent {
   message: any = "";
   Success: any = "";
   fileToUpload: File | null = null;
-
+  localEmail:any = "";
+  ngOnInit(){
+    this.localEmail = localStorage.getItem('email')
+    console.log(this.localEmail, "This is email")
+  }
   myObject: any = {};
   onSubmit() {
     // if(this.fileToUpload){
@@ -87,5 +91,10 @@ export class NavbarComponent {
   }
   education(type: any) {
     this.edu = type;
+  }
+  Auth(){
+    this.authService.GoogleAuth().then((res:any) => {
+      console.log(res.user._delegate.email)
+    })
   }
 }
